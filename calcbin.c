@@ -4,11 +4,13 @@ Email: Vaj@cesar.school
 Commits:
     - Primeira questão: 15:13 - 25/08
     - Segunda questão: 17:11 - 25/08
+    - Terceira questão: 17:54 - 25/08
 */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdint.h>
 void decimalToBinary(int decimal){
     int binary[32];
     int i=0;
@@ -160,8 +162,50 @@ void twosComplement(int decimal){
 
 
 };
-void decimalToFloat(double decimal){};
-void decimalToDouble(double decimal){};
+void decimalToFloat(float decimal){
+    unsigned int* bin = (unsigned int*)&decimal; 
+    printf("Numero em float (32 bits) no formato IEEE 754:\n");
+    int exponent = (*bin >> 23) & 0xFF;
+
+   
+    int bias = 127;
+    int exponent_with_bias = exponent;
+    printf("Vies: %d\n", bias);
+    printf("Expoente com vies: %d\n", exponent_with_bias);
+    printf("Sinal: %d\n", (*bin >> 31) & 1);
+    printf("Parte inteira: ");
+    for (int i = 30; i >= 23; i--) {
+        printf("%d", (*bin >> i) & 1);
+    }
+    printf("\n");
+    printf("Fraccao: ");
+    for (int i = 22; i >= 0; i--) {
+        printf("%d", (*bin >> i) & 1);
+    }
+    printf("\n");
+};
+void decimalToDouble(double decimal){
+    uint64_t* bin = ( uint64_t*)&decimal; 
+    printf("Numero em float (32 bits) no formato IEEE 754:\n");
+    int exponent = (*bin >> 52) & 0x7FF;
+
+   
+    int bias = 1023;
+    int exponent_with_bias = exponent;
+    printf("Vies: %d\n", bias);
+    printf("Expoente com vies: %d\n", exponent_with_bias);
+    printf("Sinal: %d\n", (*bin >> 63) & 1);
+    printf("Parte inteira: ");
+    for (int i = 10; i >= 0; i--) {
+        printf("%d", (exponent >> i) & 1);
+    }
+    printf("\n");
+    printf("Fraccao: ");
+    for (int i = 51; i >= 0; i--) {
+        printf("%d", (*bin >> i) & 1);
+    }
+    printf("\n");
+};
 int main(){
     int opcao, num;
     double realNum;
