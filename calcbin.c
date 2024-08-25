@@ -3,6 +3,7 @@ Autor: Vnícius de Andrade Jordão
 Email: Vaj@cesar.school
 Commits:
     - Primeira questão: 15:13 - 25/08
+    - Segunda questão: 17:11 - 25/08
 */
 #include <stdio.h>
 #include <string.h>
@@ -109,7 +110,56 @@ void decimalToBCD(int decimal){
     printf("Juntando as partes: %s\n", bcd);
   
 };
-void twosComplement(int decimal){};
+void twosComplement(int decimal){
+ int binary[16];
+    int i=0;
+    printf("Convertendo %d para binario \n", decimal);
+    while (decimal>0)
+    {
+        printf("Resto: %d \n", (decimal%2));
+        binary[i]= decimal%2;
+        i++;
+        printf("Quociente: %d \n", (decimal/2));
+        decimal=decimal/2;
+
+
+    }
+
+    for (int j = i; j < 16; j++) {
+        binary[j] = 0;
+    }
+
+    printf ("A forma em binario:");
+    for (int j = 15; j >= 0; j--)
+    {
+        printf ("%d", binary[j]);
+    }
+    printf("\n");
+
+    printf("Para complemento a 2, mantenha o numero igual ate o primeiro um da direita para a esquerda, e dai em diante inverta todo o resto \n");
+    int foundOne=0;
+    for (int j = 0; j < 16; j++)
+    {
+        if (foundOne)
+        {
+            binary[j]=binary[j]==0?1:0;
+            
+        }else{
+            if (binary[j]==1)
+            {
+                foundOne=1;
+            }
+        }
+        
+    }
+    for (int j = 15; j >= 0; j--)
+    {
+        printf ("%d", binary[j]);
+    }
+    printf("\n");
+
+
+};
 void decimalToFloat(double decimal){};
 void decimalToDouble(double decimal){};
 int main(){
